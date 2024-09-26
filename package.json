@@ -1,17 +1,25 @@
 {
   "name": "@stacks/rpc-client",
-  "version": "1.0.0",
+  "version": "0.9.0",
   "description": "Library for Stacks RPC operations",
   "license": "MIT",
   "author": "Hiro Systems PBC (https://hiro.so)",
   "homepage": "https://hiro.so/stacks-js",
+  "prettier": "@stacks/prettier-config",
   "scripts": {
     "build": "npm run clean && npm run build:cjs && npm run build:esm && npm run build:umd",
     "build:cjs": "tsc -b tsconfig.build.json",
     "build:esm": "tsc -p tsconfig.build.json --module ES6 --outDir ./dist/esm",
-    "build:umd": "NODE_OPTIONS=--max-old-space-size=8192 webpack --config webpack.config.js",
+    "build:umd": "NODE_OPTIONS=--max-old-space-size=8192 webpack --config config/webpack.config.js",
     "clean": "rimraf dist && tsc -b tsconfig.build.json --clean",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "lint:fix": "npm run lint:eslint:fix && npm run lint:prettier:fix",
+    "lint:eslint": "eslint \"{src,test}/**/*.{ts,tsx|!(d.ts)}\" -f unix",
+    "lint:eslint:fix": "eslint \"{src,test}/**/*.{ts,tsx}\" -f unix --fix",
+    "lint:prettier": "prettier --check \"{src,test}/**/*.{ts,tsx|!(d.ts)}\" *.js --ignore-path .gitignore",
+    "lint:prettier:fix": "prettier --write \"{src,test}/**/*.{ts,tsx|!(d.ts)}\" *.js --ignore-path .gitignore",
     "pack": "npm pack",
+    "prepare": "husky .github/.husky",
     "prepublishOnly": "npm run test && NODE_ENV=production npm run build",
     "start": "tsc -b tsconfig.build.json --watch --verbose",
     "test": "jest",
@@ -22,12 +30,27 @@
   },
   "dependencies": {
     "@stacks/network": "^6.16.0",
-    "openapi-fetch": "^0.11.1"
+    "openapi-fetch": "^0.12.2"
   },
   "devDependencies": {
-    "fetch-mock": "^11.1.1",
-    "openapi-typescript": "^7.3.0",
-    "rimraf": "^6.0.1"
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@stacks/eslint-config": "^2.0.0",
+    "@stacks/prettier-config": "^0.0.10",
+    "esbuild-loader": "^4.2.2",
+    "fetch-mock": "^11.1.5",
+    "husky": "^9.1.6",
+    "inspectpack": "^4.7.1",
+    "jest-fetch-mock": "^3.0.3",
+    "openapi-typescript": "^7.4.1",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "semantic-release": "^24.1.1",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.6.2",
+    "webpack": "^5.95.0",
+    "webpack-bundle-analyzer": "^4.10.2",
+    "webpack-cli": "^5.1.4"
   },
   "sideEffects": false,
   "publishConfig": {
@@ -45,14 +68,15 @@
   "keywords": [
     "blockstack",
     "network",
-    "stacks"
+    "stacks",
+    "rpc"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hirosystems/stacks.js.git"
+    "url": "git+https://github.com/hirosystems/stacks-rpc-client.git"
   },
   "bugs": {
-    "url": "https://github.com/blockstack/blockstack.js/issues"
+    "url": "https://github.com/hirosystems/stacks-rpc-client/issues"
   },
   "eslintConfig": {
     "ignorePatterns": [
