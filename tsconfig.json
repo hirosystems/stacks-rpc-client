@@ -1,7 +1,9 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "./tsconfig.build.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "."
+  },
   "include": ["src/**/*", "tests/**/*"],
-  "typedocOptions": {
-    "entryPoints": ["src/index.ts"]
-  }
+  "exclude": ["**/node_modules", "**/dist"]
 }

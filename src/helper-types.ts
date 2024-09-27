@@ -1,20 +1,21 @@
 import type { operations, paths } from './schema';
 
 type Extract200Response<T> = T extends { 200: infer R } ? R : never;
-type ExtractOperationResponse<T extends keyof operations> = Extract200Response<
-  operations[T]['responses']
-> extends { content: { 'application/json': infer U } }
-  ? U
-  : never;
+type ExtractOperationResponse<T extends keyof operations> =
+  Extract200Response<operations[T]['responses']> extends {
+    content: { 'application/json': infer U };
+  }
+    ? U
+    : never;
 type PathResponse<T extends keyof paths> = paths[T]['get'] extends { responses: infer R }
   ? Extract200Response<R> extends { content: { 'application/json': infer U } }
     ? U
     : never
   : paths[T]['post'] extends { responses: infer R }
-  ? Extract200Response<R> extends { content: { 'application/json': infer U } }
-    ? U
-    : never
-  : never;
+    ? Extract200Response<R> extends { content: { 'application/json': infer U } }
+      ? U
+      : never
+    : never;
 
 /** Response types for a given endpoint path or operation name */
 export type OperationResponse = {

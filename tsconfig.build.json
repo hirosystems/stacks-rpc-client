@@ -1,19 +1,38 @@
 {
-  "extends": "../../tsconfig.build.json",
   "compilerOptions": {
     "noEmit": false,
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "lib": ["dom", "esnext"],
+
+    "importHelpers": false,
+    "declaration": true,
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "pretty": true,
+    "removeComments": true,
+    "noImplicitAny": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "stripInternal": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "emitDecoratorMetadata": false,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "suppressImplicitAnyIndexErrors": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "strictNullChecks": true,
+
     "outDir": "./dist",
-    "rootDir": "./src",
-    "tsBuildInfoFile": "./tsconfig.build.tsbuildinfo",
-    "composite": true
+    "rootDir": "./src"
   },
-  "references": [
-    {
-      "path": "../common/tsconfig.build.json"
-    },
-    {
-      "path": "../network/tsconfig.build.json"
-    }
-  ],
+
   "include": ["src/**/*"]
 }
