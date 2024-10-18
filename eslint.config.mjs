@@ -7,6 +7,10 @@ export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   prettier,
+  // auto-generated schema file
+  {
+    ignores: ['src/schema.ts'],
+  },
   // jest file config
   {
     files: ['**/jest.*.{js,mjs}'],
